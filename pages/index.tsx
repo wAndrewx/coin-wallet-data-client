@@ -13,6 +13,23 @@ const Home: NextPage = () => {
 
   let web3: Web3 = new Web3();
 
+  useEffect(() => {
+    if (typeof window.ethereum !== "undefined") {
+      window.ethereum.on("accountsChanged", (accounts: Array<string>) => {
+        setaccountWallet(
+          accounts[0].slice(0, 6) +
+            "..." +
+            accounts[0].slice(accounts[0].length - 5, accounts[0].length - 1)
+        );
+      });
+
+      window.ethereum.on("chainChanged", (chain: string) => {
+        console.log(chain);
+        setIsEthMain(chain.includes("0x1"));
+      });
+    }
+  }, []);
+
   let handleConnect = async () => {
     if (typeof window.ethereum !== "undefined") {
       console.log("MetaMask is installed!");
