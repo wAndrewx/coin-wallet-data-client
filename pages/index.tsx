@@ -2,12 +2,15 @@ import { Button } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Web3 from "web3";
 declare let window: any;
 
 const Home: NextPage = () => {
   const [isWeb3, setIsWeb3] = useState(false);
+  const [isEthMain, setIsEthMain] = useState(false);
+  const [accountWallet, setaccountWallet] = useState("");
+
   let web3: Web3 = new Web3();
 
   let handleConnect = async () => {
@@ -17,17 +20,49 @@ const Home: NextPage = () => {
       let connect = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-      console.log(connect);
+      setaccountWallet(
+        connect[0].slice(0, 6) +
+          "..." +
+          connect[0].slice(connect[0].length - 5, connect[0].length - 1)
+      );
+      setIsWeb3(true);
+      if (
+        (await web3.eth.getChainId()) === 1 ||
+        (await web3.eth.net.getNetworkType()).match("main")
+      ) {
+        setIsEthMain(true);
+      } else {
+        setIsEthMain(false);
+      }
+      return true;
+    } else {
+      console.log("Please install Metamask");
+      return false;
+    }
+  };
+
+  let handleChainID = async () => {
+    if (isWeb3 && !isEthMain) {
+      try {
+        let switchChain = await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x1" }],
+        });
+        setIsEthMain(true);
+      } catch (error) {
+        setIsEthMain(false);
+      }
     }
   };
 
   let handleDisconnect = async () => {
-    window.ethereum;
+    if (isWeb3) {
+      try {
+      } catch (error) {}
+    }
   };
 
   let handleBalance = async () => {};
-
-  let handleChangeAccount = async () => {};
 
   return (
     <div>
@@ -42,7 +77,17 @@ const Home: NextPage = () => {
           handleConnect();
         }}
       >
-        Connect
+        {!isWeb3 && "Connect"}
+        {isWeb3 && accountWallet}
+      </Button>
+      <Button
+        m="5"
+        onClick={() => {
+          handleChainID();
+        }}
+        isDisabled={isEthMain}
+      >
+        Switch to Eth network
       </Button>
       {/* <footer>
         <a>
