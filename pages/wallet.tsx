@@ -4,6 +4,7 @@ import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import { useEffect, useState } from "react";
 import Web3 from "web3";
 import Navigation from "../components/Navigation";
+import WebsiteStats from "../components/wallet/WebsiteStats";
 import { getCoin } from "../utils/ethplorerAPI";
 
 declare let window: any;
@@ -13,7 +14,6 @@ const Wallet = () => {
   const [isEthMain, setIsEthMain] = useState(true);
   const [displayAccount, setDisplayAccount] = useState("");
   const [wallet, setWallet] = useState("");
-  const [info, setInfo] = useState([]);
 
   let web3: Web3 = new Web3();
 
@@ -113,12 +113,20 @@ const Wallet = () => {
   };
 
   return (
-    <Box>
+    <Box bg="whitesmoke" h="100vh">
       <Navigation rightFunc={<MetaButtons />} />
-      <Flex direction={["column", "row"]} justify="space-evenly" m="8">
-        <Button onClick={handleCoins} w="100vw">
+      <Flex direction={["column", "row"]} justify="space-evenly" m="8" h='85%'>
+        {/* <Button onClick={handleCoins} w="100vw">
           Get info
-        </Button>
+        </Button> */}
+        <Box
+          w="368px"
+          boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
+          borderRadius="xl"
+          h="100%"
+        >
+          <WebsiteStats wallet={wallet} />
+        </Box>
       </Flex>
     </Box>
   );
