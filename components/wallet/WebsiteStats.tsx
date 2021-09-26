@@ -36,7 +36,7 @@ const WebsiteStats = (props: { wallet?: string }) => {
     }
   };
   return (
-    <Flex direction="column">
+    <Flex direction="column" >
       <Heading alignSelf="center" size="md" py="4">
         Total coin visits 🚀
       </Heading>

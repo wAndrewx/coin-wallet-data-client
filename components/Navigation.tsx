@@ -10,7 +10,6 @@ const Navigation = (props: { rightFunc?: ReactJSXElement }) => {
   return (
     <Flex
       w="100vw"
-      bg="white"
       color="black"
       justifyContent="space-between"
       px="8"
