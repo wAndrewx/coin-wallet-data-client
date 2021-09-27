@@ -2,9 +2,9 @@ import { Box, Flex } from "@chakra-ui/layout";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 
 export const RankPlacement = (props: {
-  rank: number;
+  rank: number | string;
   tokenTicker: string;
-  visits: number;
+  visits: number | string;
 }): ReactJSXElement => {
   return (
     <Flex direction="row" justify="space-evenly" p="2" my="1">

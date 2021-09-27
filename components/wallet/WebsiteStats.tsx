@@ -47,6 +47,11 @@ const WebsiteStats = (props: { wallet?: string }) => {
       <Heading alignSelf="center" size="md" py="4">
         Total coin visits 🚀
       </Heading>
+      <RankPlacement
+        rank={"Rank #"}
+        tokenTicker={"Ticker"}
+        visits={"Visits #"}
+      />
       <Divider />
       {totalView.map((item: Query, index) => {
         return (
@@ -63,6 +68,11 @@ const WebsiteStats = (props: { wallet?: string }) => {
       <Heading alignSelf="center" size="md" py="4">
         Daily coin visits 🔥
       </Heading>
+      <RankPlacement
+        rank={"Rank #"}
+        tokenTicker={"Ticker"}
+        visits={"Visits #"}
+      />
       <Divider />
       {dailyView.map((item: Query, index) => {
         return (
