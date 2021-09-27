@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 
 import Web3 from "web3";
 import Navigation from "../components/Navigation";
+import { CoinInfo } from "../components/wallet/CoinInfo";
+import { CoinSelector } from "../components/wallet/CoinSelector";
 import WebsiteStats from "../components/wallet/WebsiteStats";
 import { getWallet } from "../utils/ethplorerAPI";
 declare let window: any;
@@ -15,8 +17,8 @@ const Wallet = () => {
   const [isEthMain, setIsEthMain] = useState(true);
   const [displayAccount, setDisplayAccount] = useState("");
   const [wallet, setWallet] = useState("");
-  const [coins, setCoins] = useState<Object[]>();
-
+  const [coins, setCoins] = useState<Object[]>([]);
+  const [infoDisplayed, setInfoDisplayed] = useState<Object>({});
   let web3: Web3 = new Web3();
 
   useEffect(() => {
@@ -88,13 +90,27 @@ const Wallet = () => {
     if (account) {
       let res = await getWallet(account);
       let eth = res.ETH;
+      let ethPrice = res.ETH.price;
+
       let tokens = res.tokens;
       let walletCoins: object[] = [
-        { ...eth, tokenInfo: { name: "Ethereum", symbol: "ETH" } },
+        {
+          ...eth,
+          tokenInfo: { name: "Ethereum", symbol: "ETH", price: ethPrice },
+        },
         ...tokens,
       ];
       console.log(walletCoins);
       setCoins(walletCoins);
+    }
+  };
+
+  let handleSelect = (e: Event) => {
+    let eventHandler = e.target as HTMLInputElement;
+    console.log("COIN AT INDEX:", eventHandler.value);
+    if (coins) {
+      setInfoDisplayed(coins[parseInt(eventHandler.value, 10)]);
+      // console.log(infoDisplayed);
     }
   };
 
@@ -125,30 +141,18 @@ const Wallet = () => {
   };
 
   return (
-    <Box bg="whitesmoke" h="100vh">
+    <Box bg="whitesmoke" h="100%">
       <Navigation rightFunc={<MetaButtons />} />
-      <Flex direction={["column", "row"]} justify="space-evenly" m="8">
-        <Box
-          h="85vh"
-          w="368px"
-          boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
-          borderRadius="xl"
-        >
+      <Flex direction={["column", "row"]} m="8" wrap="wrap">
+        <Box>
           <WebsiteStats wallet={wallet} />
         </Box>
-        <Box>
-          <Heading fontSize="2xl">Coins in wallet </Heading>
-          <Select
-            placeholder="Select option"
-            onClick={(e) => {
-              console.log(e.target.value);
-            }}
-          >
-            {coins?.map((item, index) => {
-              return <option key={index} value={item}>{item.tokenInfo.name}</option>;
-            })}
-          </Select>
-        </Box>
+        <CoinSelector
+          isWeb3={isWeb3}
+          coins={coins || null}
+          selectorFunc={handleSelect}
+        />
+        <CoinInfo infoDisplayed={infoDisplayed} isWeb3={isWeb3} />
       </Flex>
     </Box>
   );
