@@ -34,7 +34,7 @@ const Wallet = () => {
       });
 
       window.ethereum.on("chainChanged", async (chain: string) => {
-        console.log(chain);
+        // console.log(chain);
         setIsEthMain(chain.includes("0x1"));
         await handleWallet(wallet);
       });
@@ -91,7 +91,6 @@ const Wallet = () => {
       let res = await getWallet(account);
       let eth = res.ETH;
       let ethPrice = res.ETH.price;
-
       let tokens = res.tokens;
       let walletCoins: object[] = [
         {
@@ -100,16 +99,15 @@ const Wallet = () => {
         },
         ...tokens,
       ];
-      console.log(walletCoins);
       setCoins(walletCoins);
     }
   };
 
   let handleSelect = (e: Event) => {
     let eventHandler = e.target as HTMLInputElement;
-    console.log("COIN AT INDEX:", eventHandler.value);
+    // console.log("COIN AT INDEX:", eventHandler.value);
     if (coins) {
-      setInfoDisplayed(coins[parseInt(eventHandler.value, 10)]);
+      setInfoDisplayed(coins[parseInt(eventHandler.value, 10)].tokenInfo);
       // console.log(infoDisplayed);
     }
   };
@@ -147,12 +145,14 @@ const Wallet = () => {
         <Box>
           <WebsiteStats wallet={wallet} />
         </Box>
-        <CoinSelector
-          isWeb3={isWeb3}
-          coins={coins || null}
-          selectorFunc={handleSelect}
-        />
-        <CoinInfo infoDisplayed={infoDisplayed} isWeb3={isWeb3} />
+        <Box>
+          <CoinSelector
+            isWeb3={isWeb3}
+            coins={coins || null}
+            selectorFunc={handleSelect}
+          />
+          <CoinInfo infoDisplayed={infoDisplayed} isWeb3={isWeb3} />
+        </Box>
       </Flex>
     </Box>
   );
