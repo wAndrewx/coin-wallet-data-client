@@ -17,7 +17,7 @@ const Wallet = () => {
   const [isEthMain, setIsEthMain] = useState(true);
   const [displayAccount, setDisplayAccount] = useState("");
   const [wallet, setWallet] = useState("");
-  const [coins, setCoins] = useState<Object[]>([]);
+  const [coins, setCoins] = useState<any[]>([]);
   const [infoDisplayed, setInfoDisplayed] = useState<Object>({});
   let web3: Web3 = new Web3();
 

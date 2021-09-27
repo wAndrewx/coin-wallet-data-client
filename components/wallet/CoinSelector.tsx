@@ -4,7 +4,7 @@ import { Select } from "@chakra-ui/select";
 export const CoinSelector = (props: {
   isWeb3: boolean;
   coins: Object[] | null;
-  selectorFunc: (e: Event) => void;
+  selectorFunc: (e: any) => void;
 }) => {
   return (
     <Flex
@@ -28,7 +28,7 @@ export const CoinSelector = (props: {
         variant="flushed"
         focusBorderColor="orange.300"
       >
-        {props.coins?.map((item, index) => {
+        {props.coins?.map((item: any, index) => {
           return (
             <option key={index} value={index}>
               {item.tokenInfo.name}
