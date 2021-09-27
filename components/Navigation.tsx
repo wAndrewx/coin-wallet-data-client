@@ -12,7 +12,7 @@ const Navigation = (props: { rightFunc?: ReactJSXElement }) => {
       w="100vw"
       color="black"
       justifyContent="space-between"
-      px="8"
+      px="12"
       py="4"
     >
       <Flex align="center">
