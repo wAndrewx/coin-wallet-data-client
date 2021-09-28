@@ -3,6 +3,7 @@ import theme from "@chakra-ui/theme";
 import { ResponsivePie } from "@nivo/pie";
 
 export const PieChart = (props: { data: Array<Object> }) => {
+    
   const CenteredMetric = ({ dataWithArc, centerX, centerY }) => {
     let total: number = 0;
     dataWithArc.forEach((datum) => {
@@ -20,7 +21,7 @@ export const PieChart = (props: { data: Array<Object> }) => {
           fontWeight: 600,
         }}
       >
-        {total}
+        ${total}
       </text>
     );
   };
@@ -28,13 +29,12 @@ export const PieChart = (props: { data: Array<Object> }) => {
   return (
     <Box
       h="50vh"
-      w="45%"
-      minW="368px"
       boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
       borderRadius="xl"
       mx="4"
+      p='2'
     >
-      <Heading fontSize="xl" py="4">
+      <Heading  fontSize="xl" p="4">
         Total Balance
       </Heading>
       <ResponsivePie
@@ -69,8 +69,8 @@ export const PieChart = (props: { data: Array<Object> }) => {
         ]}
         legends={[
           {
-            anchor: "bottom",
-            direction: "row",
+            anchor: "top-left",
+            direction: "column",
             translateX: 24,
             translateY: 56,
             itemsSpacing: 8,

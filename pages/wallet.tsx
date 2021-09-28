@@ -152,7 +152,7 @@ const Wallet = () => {
         <Box h="85vh" mx="4" w="368px">
           <WebsiteStats wallet={wallet} />
         </Box>
-        <Box>
+        <Box mx="4" w="368px" h="85vh">
           <CoinSelector
             isWeb3={isWeb3}
             coins={coins || null}
@@ -160,7 +160,9 @@ const Wallet = () => {
           />
           <CoinInfo infoDisplayed={infoDisplayed} isWeb3={isWeb3} />
         </Box>
-        <PieChart data={coins ? balanceParser(coins) : []} />
+        <Box h="85vh" w="50%" minW="368px">
+          <PieChart data={coins ? balanceParser(coins) : []} />
+        </Box>
       </Flex>
     </Box>
   );

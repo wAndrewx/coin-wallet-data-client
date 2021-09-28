@@ -9,24 +9,25 @@ export const CoinSelector = (props: {
   return (
     <Flex
       direction="column"
-      w="368px"
       align="center"
       boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
       borderRadius="xl"
-      h="50%"
-      mx="4"
-      marginBottom="4"
+      h='45%'
+      p='2'
+      mb='8'
+
     >
       <Heading fontSize="xl" py="4">
         Coins in wallet{" "}
       </Heading>
       <Divider />
       <Select
-        placeholder={props.isWeb3 ? "" : "Please connect"}
+        placeholder={props.isWeb3 ? "Select coin" : "Please connect"}
         onClick={props.selectorFunc}
         p="2"
         variant="flushed"
         focusBorderColor="orange.300"
+        defaultValue="0"
       >
         {props.coins?.map((item: any, index) => {
           return (

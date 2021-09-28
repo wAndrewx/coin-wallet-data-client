@@ -38,11 +38,10 @@ const WebsiteStats = (props: { wallet?: string }) => {
   return (
     <Flex
       direction="column"
-      h="85vh"
-      mx="4"
-      w="368px"
+      h='100%'
       boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
       borderRadius="xl"
+      p='2'
     >
       <Heading alignSelf="center" size="md" py="4">
         Total coin visits 🚀
