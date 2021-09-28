@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/button";
-import { Box, Flex, Heading } from "@chakra-ui/layout";
+import { Box, Flex, Grid, GridItem, Heading } from "@chakra-ui/layout";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import { useEffect, useState } from "react";
 
@@ -8,6 +8,7 @@ import Navigation from "../components/Navigation";
 import { CoinInfo } from "../components/wallet/CoinInfo";
 import { CoinSelector } from "../components/wallet/CoinSelector";
 import { DonutChart } from "../components/wallet/DonutChart";
+import { ProjectInfo } from "../components/wallet/ProjectInfo";
 import WebsiteStats from "../components/wallet/WebsiteStats";
 import { balanceParser, getWallet } from "../utils/ethplorerAPI";
 declare let window: any;
@@ -147,24 +148,49 @@ const Wallet = () => {
   };
 
   return (
-    <Box bg="whitesmoke" h="100vh">
+    <Box bg="whitesmoke" w="100%" h="100vh">
       <Navigation rightFunc={<MetaButtons />} />
-      <Flex direction={["column", "row"]} m="8" wrap="wrap">
-        <Box h="85vh" mx="4" w="368px">
-          <WebsiteStats wallet={wallet} />
-        </Box>
-        <Box mx="4" w="368px" h="85vh">
-          <CoinSelector
-            isWeb3={isWeb3}
-            coins={coins || null}
-            selectorFunc={handleSelect}
-          />
-          <CoinInfo infoDisplayed={infoDisplayed} isWeb3={isWeb3} />
-        </Box>
-        <Box h="85vh" w="50%" minW="368px">
-          <DonutChart data={coins ? balanceParser(coins) : []} />
-        </Box>
-      </Flex>
+      <Grid
+        templateColumns="repeat(4,1fr)"
+        templateRows="repeat(3,1fr)"
+        gap="8"
+        h="90vh"
+        mx="8"
+      >
+        <GridItem colStart={1} rowStart={1} rowSpan={3}>
+          <Box h="100%" minWidth="368px">
+            <WebsiteStats wallet={wallet} />
+          </Box>
+        </GridItem>
+
+        <GridItem colStart={2} rowStart={1} rowSpan={1}>
+          <Box h="100%" minWidth="368px">
+            <CoinSelector
+              isWeb3={isWeb3}
+              coins={coins || null}
+              selectorFunc={handleSelect}
+            />
+          </Box>
+        </GridItem>
+
+        <GridItem colStart={2} rowStart={2} rowSpan={2}>
+          <Box h="100%" minWidth="368px">
+            <CoinInfo infoDisplayed={infoDisplayed} isWeb3={isWeb3} />
+          </Box>
+        </GridItem>
+
+        <GridItem colStart={3} rowStart={1} rowSpan={2} colSpan={2}>
+          <Box h="100%" minW="368px" w="100%" maxW="100%">
+            <DonutChart data={coins ? balanceParser(coins) : []} />
+          </Box>
+        </GridItem>
+
+        <GridItem colStart={3} rowStart={3} rowSpan={1} colSpan={2}>
+          <Box h="100%" minWidth="368px">
+            <ProjectInfo />
+          </Box>
+        </GridItem>
+      </Grid>
     </Box>
   );
 };

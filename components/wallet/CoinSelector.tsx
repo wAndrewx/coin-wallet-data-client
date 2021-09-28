@@ -12,10 +12,7 @@ export const CoinSelector = (props: {
       align="center"
       boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
       borderRadius="xl"
-      h='45%'
-      p='2'
-      mb='8'
-
+      h="inherit"
     >
       <Heading fontSize="xl" py="4">
         Coins in wallet{" "}

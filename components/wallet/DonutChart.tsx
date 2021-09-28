@@ -1,4 +1,4 @@
-import { Box, Heading, Text } from "@chakra-ui/layout";
+import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import theme from "@chakra-ui/theme";
 import { ResponsivePie } from "@nivo/pie";
 
@@ -24,19 +24,21 @@ export const DonutChart = (props: { data: Array<Object> }) => {
   };
 
   return (
-    <Box
-      h="70%"
+    <Flex
       boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
       borderRadius="xl"
-      mx="4"
-      p="8"
+      h="inherit"
+      direction="column"
+      py="4"
+      maxW="100%"
+      minW='100%'
     >
       <Heading fontSize="xl" px="4">
         Total Wallet Balance
       </Heading>
       <ResponsivePie
         data={props.data || []}
-        fit={false}
+        fit={true}
         valueFormat=" >-$,.10~r"
         sortByValue={true}
         margin={{ top: 40, right: 80, bottom: 120, left: 80 }}
@@ -89,6 +91,6 @@ export const DonutChart = (props: { data: Array<Object> }) => {
           },
         ]}
       />
-    </Box>
+    </Flex>
   );
 };

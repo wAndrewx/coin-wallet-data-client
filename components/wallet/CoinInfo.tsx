@@ -47,8 +47,7 @@ export const CoinInfo = (props: { infoDisplayed: any; isWeb3: boolean }) => {
       boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
       borderRadius="xl"
       direction="column"
-      h="50%"
-      p="2"
+      h="inherit"
     >
       <Heading py="4" fontSize="xl" px="4">
         {"Market data" && name + " Market Data "}
