@@ -3,9 +3,9 @@ import theme from "@chakra-ui/theme";
 import { ResponsivePie } from "@nivo/pie";
 
 export const PieChart = (props: { data: Array<Object> }) => {
-  const CenteredMetric = ({ dataWithArc, centerX, centerY }) => {
+  const CenteredMetric = ({ dataWithArc, centerX, centerY }: any) => {
     let total: number = 0;
-    dataWithArc.forEach((datum) => {
+    dataWithArc.forEach((datum: { value: string }) => {
       total += parseFloat(datum.value);
     });
 
