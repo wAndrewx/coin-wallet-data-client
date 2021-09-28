@@ -17,6 +17,10 @@ let balanceParser = (coins: Array<Object>): any => {
                 return { value: (item.balance / BALANCE_DIVIDER * item.tokenInfo.price.rate).toFixed(2), id: item.tokenInfo.symbol, label: item.tokenInfo.symbol }
             })
 
+            output = output.filter((item) => {
+                return parseFloat(item.value) > 5
+            })
+
             return [{ value: (ethBal * ethRate).toFixed(2), id: "ETH", label: "ETH" }, ...output]
         } catch (error) {
             console.log("Connect")

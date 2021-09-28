@@ -3,7 +3,6 @@ import theme from "@chakra-ui/theme";
 import { ResponsivePie } from "@nivo/pie";
 
 export const PieChart = (props: { data: Array<Object> }) => {
-    
   const CenteredMetric = ({ dataWithArc, centerX, centerY }) => {
     let total: number = 0;
     dataWithArc.forEach((datum) => {
@@ -17,33 +16,34 @@ export const PieChart = (props: { data: Array<Object> }) => {
         textAnchor="middle"
         dominantBaseline="central"
         style={{
-          fontSize: "2em",
+          fontSize: "1.5em",
           fontWeight: 600,
         }}
       >
-        ${total}
+        ${total.toFixed(2)}
       </text>
     );
   };
 
   return (
     <Box
-      h="50vh"
+      h="70%"
       boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
       borderRadius="xl"
       mx="4"
-      p='2'
+      p="8"
     >
-      <Heading  fontSize="xl" p="4">
-        Total Balance
+      <Heading fontSize="xl" px="4">
+        Total Wallet Balance
       </Heading>
       <ResponsivePie
         data={props.data || []}
+        fit={false}
         valueFormat=" >-$,.10~r"
         sortByValue={true}
         margin={{ top: 40, right: 80, bottom: 120, left: 80 }}
         innerRadius={0.75}
-        padAngle={1}
+        padAngle={2}
         cornerRadius={2}
         activeOuterRadiusOffset={8}
         borderWidth={1}
@@ -51,7 +51,7 @@ export const PieChart = (props: { data: Array<Object> }) => {
         enableArcLabels={false}
         enableArcLinkLabels={true}
         arcLinkLabelsDiagonalLength={24}
-        arcLinkLabelsSkipAngle={0}
+        arcLinkLabelsSkipAngle={40}
         arcLinkLabelsTextColor="#333333"
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: "color" }}
@@ -69,12 +69,12 @@ export const PieChart = (props: { data: Array<Object> }) => {
         ]}
         legends={[
           {
-            anchor: "top-left",
-            direction: "column",
+            anchor: "bottom",
+            direction: "row",
             translateX: 24,
-            translateY: 56,
+            translateY: 64,
             itemsSpacing: 8,
-            itemWidth: 96,
+            itemWidth: 64,
             itemHeight: 12,
             itemTextColor: "#000001",
             itemDirection: "left-to-right",
