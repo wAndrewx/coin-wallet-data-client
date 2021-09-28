@@ -1,6 +1,5 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
-import { Select } from "@chakra-ui/select";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import { useEffect, useState } from "react";
 
@@ -8,7 +7,7 @@ import Web3 from "web3";
 import Navigation from "../components/Navigation";
 import { CoinInfo } from "../components/wallet/CoinInfo";
 import { CoinSelector } from "../components/wallet/CoinSelector";
-import { PieChart } from "../components/wallet/PieChart";
+import { DonutChart } from "../components/wallet/DonutChart";
 import WebsiteStats from "../components/wallet/WebsiteStats";
 import { balanceParser, getWallet } from "../utils/ethplorerAPI";
 declare let window: any;
@@ -47,9 +46,11 @@ const Wallet = () => {
     if (typeof window.ethereum !== "undefined") {
       console.log("MetaMask is installed!");
       web3 = new Web3(window.ethereum);
-      let connect = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
+      // let connect = await window.ethereum.request({
+      //   method: "eth_requestAccounts",
+      // });
+
+      let connect = ["0x3FDA25F27211a138ADF211F4C060f2149674Be6D"];
 
       setWallet(await connect[0]);
       setDisplayAccount(
@@ -103,7 +104,7 @@ const Wallet = () => {
           tokenInfo: { name: "Ethereum", symbol: "ETH", price: ethPrice },
         },
         ...tokens,
-      ];
+      ].filter((item) => item.tokenInfo.price); // filter out items with no market data
       setCoins(walletCoins);
     }
   };
@@ -161,7 +162,7 @@ const Wallet = () => {
           <CoinInfo infoDisplayed={infoDisplayed} isWeb3={isWeb3} />
         </Box>
         <Box h="85vh" w="50%" minW="368px">
-          <PieChart data={coins ? balanceParser(coins) : []} />
+          <DonutChart data={coins ? balanceParser(coins) : []} />
         </Box>
       </Flex>
     </Box>

@@ -37,13 +37,18 @@ export const CoinInfo = (props: { infoDisplayed: any; isWeb3: boolean }) => {
       setDiff30(props.infoDisplayed.price.diff30d);
     }
   }, [props.isWeb3, props.infoDisplayed]);
+
+  const parseNumber = (data: number | Number): string => {
+    return parseFloat(data.toFixed(2)).toLocaleString("en");
+  };
+
   return (
     <Flex
       boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
       borderRadius="xl"
       direction="column"
-      h='50%'
-      p='2'
+      h="50%"
+      p="2"
     >
       <Heading py="4" fontSize="xl" px="4">
         {"Market data" && name + " Market Data "}
@@ -56,15 +61,15 @@ export const CoinInfo = (props: { infoDisplayed: any; isWeb3: boolean }) => {
           </Tr>
           <Tr>
             <Td>Supply</Td>
-            <Td>{supply.toFixed()}</Td>
+            <Td>{parseNumber(supply)}</Td>
           </Tr>
           <Tr>
             <Td>Price</Td>
-            <Td>$ {price.toFixed(2)}</Td>
+            <Td>$ {parseNumber(price)}</Td>
           </Tr>
           <Tr>
             <Td>Volume</Td>
-            <Td>$ {volume.toFixed(2)}</Td>
+            <Td>$ {parseNumber(volume)}</Td>
           </Tr>
           <Tr>
             <Td>Change 24 Hour</Td>
