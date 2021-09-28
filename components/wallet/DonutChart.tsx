@@ -1,8 +1,8 @@
-import { Box, Heading } from "@chakra-ui/layout";
+import { Box, Heading, Text } from "@chakra-ui/layout";
 import theme from "@chakra-ui/theme";
 import { ResponsivePie } from "@nivo/pie";
 
-export const PieChart = (props: { data: Array<Object> }) => {
+export const DonutChart = (props: { data: Array<Object> }) => {
   const CenteredMetric = ({ dataWithArc, centerX, centerY }: any) => {
     let total: number = 0;
     dataWithArc.forEach((datum: { value: string }) => {
@@ -15,12 +15,10 @@ export const PieChart = (props: { data: Array<Object> }) => {
         y={centerY}
         textAnchor="middle"
         dominantBaseline="central"
-        style={{
-          fontSize: "1.5em",
-          fontWeight: 600,
-        }}
+        fontSize="1.5em"
+        fontWeight="600"
       >
-        ${total.toFixed(2)}
+        ${total.toLocaleString("en")}
       </text>
     );
   };
@@ -42,20 +40,19 @@ export const PieChart = (props: { data: Array<Object> }) => {
         valueFormat=" >-$,.10~r"
         sortByValue={true}
         margin={{ top: 40, right: 80, bottom: 120, left: 80 }}
-        innerRadius={0.75}
-        padAngle={2}
-        cornerRadius={2}
+        innerRadius={0.7}
+        padAngle={1}
+        cornerRadius={1}
         activeOuterRadiusOffset={8}
         borderWidth={1}
         borderColor={{ from: "color", modifiers: [["darker", 1.5]] }}
         enableArcLabels={false}
         enableArcLinkLabels={true}
         arcLinkLabelsDiagonalLength={24}
-        arcLinkLabelsSkipAngle={40}
+        arcLinkLabelsSkipAngle={5}
         arcLinkLabelsTextColor="#333333"
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: "color" }}
-        arcLabelsSkipAngle={10}
         arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
         colors={{ scheme: "accent" }}
         motionConfig="slow"
