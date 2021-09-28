@@ -8,17 +8,21 @@ import Web3 from "web3";
 import Navigation from "../components/Navigation";
 import { CoinInfo } from "../components/wallet/CoinInfo";
 import { CoinSelector } from "../components/wallet/CoinSelector";
+import { PieChart } from "../components/wallet/PieChart";
 import WebsiteStats from "../components/wallet/WebsiteStats";
-import { getWallet } from "../utils/ethplorerAPI";
+import { balanceParser, getWallet } from "../utils/ethplorerAPI";
 declare let window: any;
 
 const Wallet = () => {
   const [isWeb3, setIsWeb3] = useState(false);
   const [isEthMain, setIsEthMain] = useState(true);
+
   const [displayAccount, setDisplayAccount] = useState("");
   const [wallet, setWallet] = useState("");
+
   const [coins, setCoins] = useState<any[]>([]);
   const [infoDisplayed, setInfoDisplayed] = useState<Object>({});
+
   let web3: Web3 = new Web3();
 
   useEffect(() => {
@@ -29,14 +33,12 @@ const Wallet = () => {
             "..." +
             accounts[0].slice(accounts[0].length - 5, accounts[0].length - 1)
         );
-        setWallet(accounts[0]);
-        await handleWallet(wallet);
       });
-
       window.ethereum.on("chainChanged", async (chain: string) => {
-        // console.log(chain);
+        console.log(chain);
         setIsEthMain(chain.includes("0x1"));
-        await handleWallet(wallet);
+        await handleConnect();
+        await handleGetCoinsWallet(wallet);
       });
     }
   }, [wallet]);
@@ -48,6 +50,7 @@ const Wallet = () => {
       let connect = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
+
       setWallet(await connect[0]);
       setDisplayAccount(
         connect[0].slice(0, 6) +
@@ -55,12 +58,13 @@ const Wallet = () => {
           connect[0].slice(connect[0].length - 5, connect[0].length - 1)
       );
       setIsWeb3(true);
+
       if (
         (await web3.eth.getChainId()) === 1 ||
         (await web3.eth.net.getNetworkType()).match("main")
       ) {
         setIsEthMain(true);
-        await handleWallet(await connect[0]);
+        await handleGetCoinsWallet(await connect[0]);
       } else {
         setIsEthMain(false);
       }
@@ -86,9 +90,10 @@ const Wallet = () => {
     }
   };
 
-  let handleWallet = async (account: string) => {
+  let handleGetCoinsWallet = async (account: string) => {
     if (account) {
       let res = await getWallet(account);
+
       let eth = res.ETH;
       let ethPrice = res.ETH.price;
       let tokens = res.tokens;
@@ -105,10 +110,12 @@ const Wallet = () => {
 
   let handleSelect = (e: Event) => {
     let eventHandler = e.target as HTMLInputElement;
-    // console.log("COIN AT INDEX:", eventHandler.value);
     if (coins) {
-      setInfoDisplayed(coins[parseInt(eventHandler.value, 10)].tokenInfo);
-      // console.log(infoDisplayed);
+      try {
+        setInfoDisplayed(coins[parseInt(eventHandler.value, 10)].tokenInfo);
+      } catch (error) {
+        console.log("selection error:", error);
+      }
     }
   };
 
@@ -139,10 +146,10 @@ const Wallet = () => {
   };
 
   return (
-    <Box bg="whitesmoke" h="100%">
+    <Box bg="whitesmoke" h="100vh">
       <Navigation rightFunc={<MetaButtons />} />
       <Flex direction={["column", "row"]} m="8" wrap="wrap">
-        <Box>
+        <Box h="85vh" mx="4" w="368px">
           <WebsiteStats wallet={wallet} />
         </Box>
         <Box>
@@ -153,6 +160,7 @@ const Wallet = () => {
           />
           <CoinInfo infoDisplayed={infoDisplayed} isWeb3={isWeb3} />
         </Box>
+        <PieChart data={coins ? balanceParser(coins) : []} />
       </Flex>
     </Box>
   );
