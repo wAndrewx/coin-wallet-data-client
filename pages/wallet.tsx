@@ -11,6 +11,8 @@ import { DonutChart } from "../components/wallet/DonutChart";
 import { ProjectInfo } from "../components/wallet/ProjectInfo";
 import WebsiteStats from "../components/wallet/WebsiteStats";
 import { balanceParser, getWallet } from "../utils/ethplorerAPI";
+import { incrementCoin } from "../utils/nativeAPI";
+
 declare let window: any;
 
 const Wallet = () => {
@@ -50,6 +52,7 @@ const Wallet = () => {
       let connect = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
+      await handleGetCoinsWallet(await connect[0]);
 
       // let connect = ["0x3FDA25F27211a138ADF211F4C060f2149674Be6D"];
 
@@ -66,7 +69,6 @@ const Wallet = () => {
         (await web3.eth.net.getNetworkType()).match("main")
       ) {
         setIsEthMain(true);
-        await handleGetCoinsWallet(await connect[0]);
       } else {
         setIsEthMain(false);
       }
@@ -99,7 +101,7 @@ const Wallet = () => {
       let eth = res.ETH;
       let ethPrice = res.ETH.price;
       let tokens = res.tokens;
-      let walletCoins: object[] = [
+      let walletCoins: any[] = [
         {
           ...eth,
           tokenInfo: { name: "Ethereum", symbol: "ETH", price: ethPrice },
@@ -107,14 +109,24 @@ const Wallet = () => {
         ...tokens,
       ].filter((item) => item.tokenInfo.price); // filter out items with no market data
       setCoins(walletCoins);
+      handleCoinSelectHelper(walletCoins[0].tokenInfo);
     }
+  };
+
+  const handleCoinSelectHelper = (coin: { name: string; symbol: string }) => {
+    setInfoDisplayed(coin);
+    incrementCoin(coin.symbol, coin.name);//(ticker, token)
   };
 
   let handleSelect = (e: Event) => {
     let eventHandler = e.target as HTMLInputElement;
     if (coins) {
       try {
-        setInfoDisplayed(coins[parseInt(eventHandler.value, 10)].tokenInfo);
+        console.log(eventHandler.value);
+        // console.log(coins[parseInt(eventHandler.value, 10)].tokenInfo);
+        handleCoinSelectHelper(
+          coins[parseInt(eventHandler.value, 10)].tokenInfo
+        );
       } catch (error) {
         console.log("selection error:", error);
       }
@@ -180,7 +192,7 @@ const Wallet = () => {
         </GridItem>
 
         <GridItem colStart={3} rowStart={1} rowSpan={2} colSpan={2}>
-          <Box h="100%" minW="368px" w="100%" maxW="100%">
+          <Box h="100%" w="100%" minWidth="0">
             <DonutChart data={coins ? balanceParser(coins) : []} />
           </Box>
         </GridItem>

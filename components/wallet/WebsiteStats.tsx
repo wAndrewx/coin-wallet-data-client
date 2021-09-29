@@ -57,7 +57,7 @@ const WebsiteStats = (props: { wallet?: string }) => {
             key={item.token_ticker + (index + 1)}
             rank={index + 1}
             tokenTicker={item.token_ticker}
-            visits={item.daily_visits || 0}
+            visits={item.total_visits|| 0}
           />
         );
       })}

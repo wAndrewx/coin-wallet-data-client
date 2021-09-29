@@ -19,7 +19,6 @@ export const CoinSelector = (props: {
       </Heading>
       <Divider />
       <Select
-        placeholder={props.isWeb3 ? "Select coin" : "Please connect"}
         onClick={props.selectorFunc}
         p="2"
         variant="flushed"

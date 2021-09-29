@@ -13,4 +13,15 @@ const getTotal = async () => {
     console.log(res.data)
     return res.data.query
 }
-export { getDaily, getTotal }
+
+const incrementCoin = async (ticker: string, token: string) => {
+    if (ticker && token) {
+        try {
+            let res = await axios.patch(`${connection}/coin/total`, {}, { params: { ticker: ticker, token: token } })
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+export { getDaily, getTotal, incrementCoin }
