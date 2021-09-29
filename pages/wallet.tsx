@@ -47,11 +47,11 @@ const Wallet = () => {
     if (typeof window.ethereum !== "undefined") {
       console.log("MetaMask is installed!");
       web3 = new Web3(window.ethereum);
-      // let connect = await window.ethereum.request({
-      //   method: "eth_requestAccounts",
-      // });
+      let connect = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
 
-      let connect = ["0x3FDA25F27211a138ADF211F4C060f2149674Be6D"];
+      // let connect = ["0x3FDA25F27211a138ADF211F4C060f2149674Be6D"];
 
       setWallet(await connect[0]);
       setDisplayAccount(
