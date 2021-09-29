@@ -9,11 +9,11 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 const Home: NextPage = () => {
   const LinkToApp = (): ReactJSXElement => {
     return (
-      <Button border="1px" rightIcon={<ArrowForwardIcon />}>
-        <Link href="/wallet">
+      <Link href="/wallet">
+        <Button border="1px" rightIcon={<ArrowForwardIcon />}>
           <a>Web app</a>
-        </Link>
-      </Button>
+        </Button>
+      </Link>
     );
   };
   return (

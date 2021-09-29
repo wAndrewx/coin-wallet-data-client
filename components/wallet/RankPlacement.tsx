@@ -7,7 +7,7 @@ export const RankPlacement = (props: {
   visits: number | string;
 }): ReactJSXElement => {
   return (
-    <Flex direction="row" justify="space-evenly" p="2" my="1">
+    <Flex direction="row" justify="space-evenly" p="2" >
       <Box textAlign="center" w="33%">
         {props.rank}
       </Box>

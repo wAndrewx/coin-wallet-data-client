@@ -30,15 +30,15 @@ export const DonutChart = (props: { data: Array<Object> }) => {
       h="inherit"
       direction="column"
       py="4"
-      maxW="100%"
-      minW='100%'
+      w="inherit"
+      minWidth="0"
     >
       <Heading fontSize="xl" px="4">
         Total Wallet Balance
       </Heading>
       <ResponsivePie
         data={props.data || []}
-        fit={true}
+        // fit={true}
         valueFormat=" >-$,.10~r"
         sortByValue={true}
         margin={{ top: 40, right: 80, bottom: 120, left: 80 }}

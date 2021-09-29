@@ -23,7 +23,7 @@ let balanceParser = (coins: Array<Object>): any => {
 
             return [{ value: (ethBal * ethRate).toFixed(2), id: "ETH", label: "ETH" }, ...output]
         } catch (error) {
-            console.log("Connect")
+            console.log("Connect to wallet")
         }
     }
 }
