@@ -19,7 +19,7 @@ export const CoinSelector = (props: {
       </Heading>
       <Divider />
       <Select
-        onClick={props.selectorFunc}
+        // onClick={props.selectorFunc}
         p="2"
         variant="flushed"
         focusBorderColor="orange.300"
@@ -27,7 +27,7 @@ export const CoinSelector = (props: {
       >
         {props.coins?.map((item: any, index) => {
           return (
-            <option key={index} value={index}>
+            <option key={index} value={index} onClick={props.selectorFunc}>
               {item.tokenInfo.name}
             </option>
           );
