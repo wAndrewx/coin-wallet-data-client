@@ -69,8 +69,12 @@ const Home: NextPage = () => {
                   <ExternalLinkIcon boxSize="4" />
                 </Link>
                 <Box py="8">
-                  <Button variant="ghost">Front end</Button>
-                  <Button variant="ghost">Back end</Button>
+                  <Link href="https://github.com/wAndrewx/coin-wallet-data-client">
+                    <Button variant="ghost">Front end</Button>
+                  </Link>
+                  <Link href="https://github.com/wAndrewx/coin-wallet-data-server">
+                    <Button variant="ghost">Back end</Button>
+                  </Link>
                 </Box>
                 <Text fontSize="sm">
                   No user data has been stored on the database, only website

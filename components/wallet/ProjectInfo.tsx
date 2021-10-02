@@ -24,12 +24,12 @@ export const ProjectInfo = () => {
         token balances.
       </Text>
       <footer style={{ marginTop: "16px" }}>
-        <Button variant="outline" colorScheme="whatsapp" mr="2">
-          Front end
-        </Button>
-        <Button variant="outline" colorScheme="whatsapp" ml="2">
-          Back end
-        </Button>
+        <Link href="https://github.com/wAndrewx/coin-wallet-data-client">
+          <Button variant="ghost">Front end</Button>
+        </Link>
+        <Link href="https://github.com/wAndrewx/coin-wallet-data-server">
+          <Button variant="ghost">Back end</Button>
+        </Link>
       </footer>
     </Box>
   );
