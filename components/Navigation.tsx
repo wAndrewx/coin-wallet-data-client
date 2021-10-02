@@ -9,7 +9,6 @@ import Image from "next/image";
 const Navigation = (props: { rightFunc?: ReactJSXElement }) => {
   return (
     <Flex
-      w="100vw"
       color="black"
       justifyContent="space-between"
       px="8"
@@ -24,7 +23,7 @@ const Navigation = (props: { rightFunc?: ReactJSXElement }) => {
           height="32px"
         ></Image>
         <Text pl='2' fontSize="xl" fontWeight="bold">
-          Coin Hold
+          Coin Balance
         </Text>
       </Flex>
       {props.rightFunc}

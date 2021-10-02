@@ -18,10 +18,10 @@ export const ProjectInfo = () => {
         out the code for the front end and the backend code at the buttons
         below, with instructions on how to set up the database locally. This was
         a fun project to work with Metamask{"'"}s library and to learn SQL. The
-        backend will be hosted on a AWS EC2 server and SQL database will be
-        hosted on AWS{"'"}s RDS. The front end is hosted on Vercel developed
-        using NextJS, with Nivo for the chart. It also used ETHPlorer{"'s"} API
-        to get current holdings.
+        backend is be hosted on a AWS EC2 instance and SQL database is hosted on
+        AWS{"'"}s RDS. The front end is hosted on Vercel developed using NextJS,
+        with Nivo for the chart. It also used ETHPlorer{"'s"} API to get current
+        token balances.
       </Text>
       <footer style={{ marginTop: "16px" }}>
         <Button variant="outline" colorScheme="whatsapp" mr="2">

@@ -27,11 +27,9 @@ export const DonutChart = (props: { data: Array<Object> }) => {
     <Flex
       boxShadow="rgb(218 218 222) 6px 6px 12px, rgb(255 255 255) -6px -6px 12px"
       borderRadius="xl"
-      h="inherit"
       direction="column"
       py="4"
-      w="inherit"
-      minWidth="0"
+      h="inherit"
     >
       <Heading fontSize="xl" px="4">
         Total Wallet Balance
@@ -56,7 +54,14 @@ export const DonutChart = (props: { data: Array<Object> }) => {
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: "color" }}
         arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
-        colors={{ scheme: "accent" }}
+        colors={[
+          "#70e000",
+          "#007200",
+          "#008000",
+          "#38b000",
+          "#70e000",
+          "#9ef01a",
+        ]}
         motionConfig="slow"
         transitionMode="startAngle"
         layers={[

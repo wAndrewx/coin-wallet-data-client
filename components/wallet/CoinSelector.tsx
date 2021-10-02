@@ -22,7 +22,7 @@ export const CoinSelector = (props: {
         // onClick={props.selectorFunc}
         p="2"
         variant="flushed"
-        focusBorderColor="orange.300"
+        focusBorderColor="green.300"
         defaultValue="0"
       >
         {props.coins?.map((item: any, index) => {
