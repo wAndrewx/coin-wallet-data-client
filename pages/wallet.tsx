@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import Web3 from "web3";
 import Navigation from "../components/Navigation";
+
 import { CoinInfo } from "../components/wallet/CoinInfo";
 import { CoinSelector } from "../components/wallet/CoinSelector";
 import { DonutChart } from "../components/wallet/DonutChart";
@@ -35,9 +36,10 @@ const Wallet = () => {
             "..." +
             accounts[0].slice(accounts[0].length - 5, accounts[0].length - 1)
         );
+        await handleGetCoinsWallet(await accounts[0]);
+        setWallet(await accounts[0]);
       });
       window.ethereum.on("chainChanged", async (chain: string) => {
-        console.log(chain);
         setIsEthMain(chain.includes("0x1"));
         await handleConnect();
         await handleGetCoinsWallet(wallet);
@@ -47,14 +49,10 @@ const Wallet = () => {
 
   let handleConnect = async () => {
     if (typeof window.ethereum !== "undefined") {
-      console.log("MetaMask is installed!");
       web3 = new Web3(window.ethereum);
       let connect = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-      await handleGetCoinsWallet(await connect[0]);
-
-      // let connect = ["0x3FDA25F27211a138ADF211F4C060f2149674Be6D"];
 
       setWallet(await connect[0]);
       setDisplayAccount(
@@ -72,10 +70,10 @@ const Wallet = () => {
       } else {
         setIsEthMain(false);
       }
+      await handleGetCoinsWallet(await connect[0]);
 
       return true;
     } else {
-      console.log("Please install Metamask");
       return false;
     }
   };
@@ -97,38 +95,40 @@ const Wallet = () => {
   let handleGetCoinsWallet = async (account: string) => {
     if (account) {
       let res = await getWallet(account);
-
       let eth = res.ETH;
       let ethPrice = res.ETH.price;
-      let tokens = res.tokens;
-      let walletCoins: any[] = [
-        {
-          ...eth,
-          tokenInfo: { name: "Ethereum", symbol: "ETH", price: ethPrice },
-        },
-        ...tokens,
-      ].filter((item) => item.tokenInfo.price); // filter out items with no market data
-      setCoins(walletCoins);
-      handleCoinSelectHelper(walletCoins[0].tokenInfo);
+      let ethObject = {
+        ...eth,
+        tokenInfo: { name: "Ethereum", symbol: "ETH", price: ethPrice },
+      };
+      if (res.tokens) {
+        let tokens = res.tokens;
+        let walletCoins: any[] = [ethObject, ...tokens].filter(
+          (item) => item.tokenInfo.price
+        ); // filter out items with no market data
+        setCoins(walletCoins);
+        handleCoinSelectHelper(walletCoins[0].tokenInfo);
+      } else {
+        setCoins([ethObject]);
+        handleCoinSelectHelper(ethObject.tokenInfo);
+      }
     }
   };
 
   const handleCoinSelectHelper = (coin: { name: string; symbol: string }) => {
     setInfoDisplayed(coin);
-    incrementCoin(coin.symbol, coin.name);//(ticker, token)
+    incrementCoin(coin.symbol, coin.name); //(ticker, token)
   };
 
   let handleSelect = (e: Event) => {
     let eventHandler = e.target as HTMLInputElement;
     if (coins) {
       try {
-        console.log(eventHandler.value);
-        // console.log(coins[parseInt(eventHandler.value, 10)].tokenInfo);
         handleCoinSelectHelper(
           coins[parseInt(eventHandler.value, 10)].tokenInfo
         );
       } catch (error) {
-        console.log("selection error:", error);
+        console.log(error);
       }
     }
   };
