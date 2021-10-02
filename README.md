@@ -1,3 +1,37 @@
+# Overview
+
+### Backend can be found [here](https://github.com/wAndrewx/coin-wallet-data-server)
+
+## Demo
+
+![project demo](./public/projectdemo.png)
+
+##### *Public wallet used for picture demo*
+
+---
+
+## Technologies
+
+### Written in Typescript :
+
+### Front End
+
+- Next JS 
+    - Hosted with Vercel
+- React
+- ChakraUI
+
+### Backend   
+
+- Server hosted on AWS EC2
+    - PM2 manages process 
+
+- PostgresSQL
+    - Hosted using AWS RDS    
+
+- Express (NodeJS)
+
+---
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
