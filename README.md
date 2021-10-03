@@ -72,5 +72,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ### Credits
 
-[Icon for project ](https://www.flaticon.com/free-icon/project_1055646
-)
+- [Icon for project ](https://www.flaticon.com/free-icon/project_1055646)
+- [ Ethereum token art ](https://www.reddit.com/r/ethereum/comments/n1r5cm/just_some_nice_ethereum_art_to_celebrate_the/)
