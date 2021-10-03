@@ -10,6 +10,9 @@
 
 ---
 
+## TODO:
+- [ ] Responsive UI
+
 ## Technologies
 
 ### Written in Typescript :
