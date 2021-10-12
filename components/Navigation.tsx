@@ -13,6 +13,7 @@ const Navigation = (props: { rightFunc?: ReactJSXElement }) => {
       justifyContent="space-between"
       px="8"
       py="4"
+      h='8vh'
     >
       <Flex align="center">
         <Image

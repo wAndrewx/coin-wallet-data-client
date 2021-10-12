@@ -54,6 +54,8 @@ const Wallet = () => {
         method: "eth_requestAccounts",
       });
 
+      // let connect = []
+
       setWallet(await connect[0]);
       setDisplayAccount(
         connect[0].slice(0, 6) +
@@ -160,50 +162,42 @@ const Wallet = () => {
   };
 
   return (
-    <Box bg="whitesmoke" w="100%" h="100vh">
+    <Flex w="100vw" h='100vh' direction="column">
       <Navigation rightFunc={<MetaButtons />} />
-      <Grid
-        templateColumns="repeat(4,1fr)"
-        templateRows="repeat(3,1fr)"
-        gap="8"
-        h="90vh"
-        mx="8"
+      <Flex
+        minH="92vh"
+        h='100%'
+        w="100%"
+        px="4"
+        direction={["column", "column", "column", "row"]}
+        bg="whitesmoke"
       >
-        <GridItem colStart={1} rowStart={1} rowSpan={3}>
-          <Box h="100%" minWidth="368px">
-            <WebsiteStats wallet={wallet} />
-          </Box>
-        </GridItem>
-
-        <GridItem colStart={2} rowStart={1} rowSpan={1}>
-          <Box h="100%" minWidth="368px">
+        <Box h="100%" minWidth="368px" p="4">
+          <WebsiteStats wallet={wallet} />
+        </Box>
+        <Flex h="100%" minWidth="368px" direction="column">
+          <Box p="4">
             <CoinSelector
               isWeb3={isWeb3}
               coins={coins || null}
               selectorFunc={handleSelect}
             />
           </Box>
-        </GridItem>
-
-        <GridItem colStart={2} rowStart={2} rowSpan={2}>
-          <Box h="100%" minWidth="368px">
+          <Box h="100%" p="4">
             <CoinInfo infoDisplayed={infoDisplayed} isWeb3={isWeb3} />
           </Box>
-        </GridItem>
+        </Flex>
 
-        <GridItem colStart={3} rowStart={1} rowSpan={2} colSpan={2}>
-          <Box h="100%" w="100%" minWidth="0">
+        <Flex h="100%" minWidth="368px" direction="column">
+          <Box h="100%" p="4">
             <DonutChart data={coins ? balanceParser(coins) : []} />
           </Box>
-        </GridItem>
-
-        <GridItem colStart={3} rowStart={3} rowSpan={1} colSpan={2}>
-          <Box h="100%" minWidth="368px">
+          <Box p="4">
             <ProjectInfo />
           </Box>
-        </GridItem>
-      </Grid>
-    </Box>
+        </Flex>
+      </Flex>
+    </Flex>
   );
 };
 

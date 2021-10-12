@@ -29,7 +29,7 @@ export const DonutChart = (props: { data: Array<Object> }) => {
       borderRadius="xl"
       direction="column"
       py="4"
-      h="inherit"
+      h='100%'
     >
       <Heading fontSize="xl" px="4">
         Total Wallet Balance
